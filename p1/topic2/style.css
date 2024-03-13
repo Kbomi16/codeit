@@ -1,0 +1,22 @@
+h1 {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+.sTitle {
+  color: #818181;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+div {
+  background: #ffffff;
+  margin: 24px auto;
+  padding: 24px;
+  width: 320px;
+}
+span {
+  color: #818181;
+  font-size: 12px;
+  font-weight: 400;
+}
