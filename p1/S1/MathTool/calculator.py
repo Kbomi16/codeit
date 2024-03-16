@@ -8,5 +8,8 @@ def sub(a,b):
 def multiply(a,b):
 	return a*b
 
-def divide(a,b):
+def divide_(a,b):
 	return a/b
+
+def sqaure(a,b):
+	return a**b
