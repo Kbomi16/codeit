@@ -13,4 +13,4 @@ https://velog.io/@bori_note/p1-CSS-%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83
 https://velog.io/@bori_note/p1-%EC%8B%A4%EC%9A%A9%EC%A0%81-%EC%9C%A0%EB%8B%89%EC%8A%A4-%EC%BB%A4%EB%A7%A8%EB%93%9C
 
 ## [P1] Git 
-
+https://velog.io/@bori_note/P1-Git
