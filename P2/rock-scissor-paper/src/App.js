@@ -1,18 +1,51 @@
-import HandButton from "./HandButton";
-import Button from "./Button";
+import Button from './Button';
+import HandButton from './HandButton';
+import HandIcon from './HandIcon';
+import { compareHand, generateRandomHand } from './utils';
+import { useState } from "react";
+
+function getResult(me, other) {
+  const comparison = compareHand(me, other);
+  if (comparison > 0) return '승리';
+  if (comparison < 0) return '패배';
+  return '무승부';
+}
 
 function App() {
-  const handleClick = (value) => console.log(value);
-  const handleClearClick = (name) => console.log(name)
+  // hand와 otherHand를 state로 바꿔 주세요
+  const [hand, setHand] = useState('rock')
+  const [otherHand, setotherHand] = useState('rock')
+
+  const handleButtonClick = (nextHand) => {
+    const nextOtherHand = generateRandomHand()
+    // hand의 값을 nextHand 로 바꿔 주세요
+    setHand(nextHand)
+    // otherHand의 값을 generateRandomHand()의 리턴 값으로 바꿔주세요
+    setotherHand(nextOtherHand)
+  };
+
+  const handleClearClick = () => {
+    // hand와 otherHand의 값을 'rock' 으로 바꿔주세요
+    setHand('rock')
+    setotherHand('rock')
+  };
+
   return (
-    <>
-    <Button onClick={handleClearClick}>처음부터</Button>
-      <HandButton value="rock" onClick={handleClick} />
-      <HandButton value="scissor" onClick={handleClick} />
-      <HandButton value="paper" onClick={handleClick} />
-    </>
+    <div>
+      <Button onClick={handleClearClick}>처음부터</Button>
+      <p>{getResult(hand, otherHand)}</p>
+      <div>
+        <HandIcon value={hand} />
+        VS
+        <HandIcon value={otherHand} />
+      </div>
+      <div>
+        <HandButton value="rock" onClick={handleButtonClick} />
+        <HandButton value="scissor" onClick={handleButtonClick} />
+        <HandButton value="paper" onClick={handleButtonClick} />
+      </div>
+    </div>
   );
 }
 
 export default App;
-
