@@ -26,8 +26,8 @@ function App(props) {
   return (
     <>
       <div>
-        <Button text="던지기" onClick={handleRollClick} />
-        <Button text="처음부터" onClick={handleClearClick} />
+        <Button color="blue" onClick={handleRollClick}>던지기</Button>
+        <Button color="red" onClick={handleClearClick}>처음부터</Button>
       </div>
       <div>
         <Board name="나" color="blue" gameHistory={myHistory}/>
