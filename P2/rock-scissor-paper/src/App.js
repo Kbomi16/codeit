@@ -3,6 +3,7 @@ import Button from "./Button";
 import HandButton from "./HandButton";
 import HandIcon from "./HandIcon";
 import { compareHand, generateRandomHand } from "./utils";
+import './App.css'
 
 const INITIAL_VALUE = "rock";
 
@@ -51,17 +52,22 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="App">
+      <h1 className="App-heading">가위바위보</h1>
       <Button onClick={handleClearClick}>처음부터</Button>
-      <div>
+      <div className="App-scores">
         {score} : {otherScore}
       </div>
-      <div>
+      <div className="Box App-box">
+        <div className="Box-inner">
+        <div class="App-hands">
         <HandIcon value={hand} />
         VS
         <HandIcon value={otherHand} />
+        </div>
+        </div>
       </div>
-      <div>
+      <div className="App-bet">
         <input
           type="number"
           value={bet}
