@@ -16,7 +16,7 @@ function App() {
         <button onClick={handleNewestClick}>최신순</button>
         <button onClick={handBestClick}>베스트순</button>
       </div>
-      <ReviewList items={items} />
+      <ReviewList items={sortedItems} />
     </div>
   );
 }
