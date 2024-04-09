@@ -15,16 +15,16 @@ function App() {
     setItems(nextItems);
   };
 
-  const handleLoad = async () => {
+  const handleLoad = async (orderQuery) => {
     // 비동기로 리퀘스를 보냈다가 리스폰스가 도착하면 reviews 변수를 지정하고
-    const { reviews } = await getReviews();
+    const { reviews } = await getReviews(orderQuery);
     // setItems를 통해 state 변경 -> App 컴포넌트를 다시 렌더링함
     setItems(reviews);
   };
 
   useEffect(() => {
-    handleLoad();
-  }, []); // 콜백함수를 맨 처음 렌더링할 때만 실행해서 무한루프를 방지함
+    handleLoad(order);
+  }, [order]); // 콜백함수를 맨 처음 렌더링할 때만 실행해서 무한루프를 방지함
 
   return (
     <div>
