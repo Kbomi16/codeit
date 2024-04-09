@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FoodList from "./components/FoodList";
 import { getFoods } from "./api";
 
@@ -14,17 +14,20 @@ function App() {
     setItems(nextItems);
   };
 
-  const handleLoadClick = async () => {
+  const handleLoad = async () => {
     const { foods } = await getFoods();
     setItems(foods);
   };
+
+  useEffect(() => {
+    handleLoad()
+  }, [])
 
   return (
     <div>
       <button onClick={handleNewestClick}>최신순</button>
       <button onClick={handleCalorieClick}>칼로리순</button>
       <FoodList items={sortedItems} onDelete={handleDelete} />
-      <button onClick={handleLoadClick}>불러오기</button>
     </div>
   );
 }
