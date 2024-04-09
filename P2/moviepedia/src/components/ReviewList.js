@@ -28,7 +28,8 @@ function ReviewList({ items, onDelete }) {
     <ul>
       {items.map((item) => {
         return (
-          <li>
+          // 배열을 렌더링할 땐 반드시 key 설정
+          <li key={item.id}>
             <ReviewListItem item={item} onDelete={onDelete}/>
           </li>
         );
