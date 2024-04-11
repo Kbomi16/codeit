@@ -9,6 +9,8 @@ function App() {
   const [order, setOrder] = useState("createdAt"); // 최신순
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 평점 높은 순(내림차순)
 
   const handleNewestClick = () => setOrder("createdAt");
@@ -20,9 +22,19 @@ function App() {
   };
 
   const handleLoad = async (options) => {
-    // 비동기로 리퀘스를 보냈다가 리스폰스가 도착하면 reviews 변수를 지정하고
-    const { reviews, paging } = await getReviews(options);
-    // setItems를 통해 state 변경 -> App 컴포넌트를 다시 렌더링함
+    let result;
+    try {
+      setIsLoading(true)
+      result = await getReviews(options)
+    } catch (error) {
+      console.error(error);
+      return;
+    } finally {
+      setIsLoading(false)
+    }
+    const {paging, reviews} = result
+
+
     if (options.offset === 0) {
       setItems(reviews);
     } else {
@@ -48,7 +60,8 @@ function App() {
       </div>
       <ReviewList items={sortedItems} onDelete={handleDelete} />
       {hasNext && (
-        <button disabled={!hasNext} onClick={handleLoadMore}>
+        // 리퀘스트가 진행 중을 때 버튼 비활성화
+        <button disabled={isLoading} onClick={handleLoadMore}>
           더 보기
         </button>
       )}
