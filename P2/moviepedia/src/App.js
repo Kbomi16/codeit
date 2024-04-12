@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReviewList from "./components/ReviewList";
 import { getReviews } from "./api";
+import ReviewForm from "./components/ReviewForm";
 
 const LIMIT = 6;
 
@@ -60,6 +61,7 @@ function App() {
         <button onClick={handleNewestClick}>최신순</button>
         <button onClick={handBestClick}>베스트순</button>
       </div>
+      <ReviewForm/>
       <ReviewList items={sortedItems} onDelete={handleDelete} />
       {hasNext && (
         // 리퀘스트가 진행 중을 때 버튼 비활성화
