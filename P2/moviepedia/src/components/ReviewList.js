@@ -1,3 +1,4 @@
+import Rating from "./Rating";
 import "./ReviewList.css";
 
 function formatDate(value) {
@@ -6,14 +7,14 @@ function formatDate(value) {
 }
 
 function ReviewListItem({ item, onDelete }) {
-  const handleDeleteClick = () => onDelete(item.id)
+  const handleDeleteClick = () => onDelete(item.id);
 
   return (
     <div className="ReviewListItem">
       <img className="ReviewListItem-img" src={item.imgUrl} alt={item.title} />
       <div>
         <h1>{item.title}</h1>
-        <p>{item.rating}</p>
+        <Rating value={item.rating} />
         {/* createdAt: 생성한 날짜 */}
         <p>{formatDate(item.createdAt)}</p>
         <p>{item.content}</p>
@@ -30,7 +31,7 @@ function ReviewList({ items, onDelete }) {
         return (
           // 배열을 렌더링할 땐 반드시 key 설정
           <li key={item.id}>
-            <ReviewListItem item={item} onDelete={onDelete}/>
+            <ReviewListItem item={item} onDelete={onDelete} />
           </li>
         );
       })}
