@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-function FileInput({ name, value, onChange }) {
-  const [preview, setPreview] = useState("");
+function FileInput({ name, value, initialPreview ,onChange }) {
+  const [preview, setPreview] = useState(initialPreview);
 
   // ref를 쓰면 직접 DOM 노드에 접근이 가능함
   const inputRef = useRef();
@@ -33,10 +33,10 @@ function FileInput({ name, value, onChange }) {
     setPreview(nextPreview);
 
     return () => {
-      setPreview()
+      setPreview(initialPreview)
       URL.revokeObjectURL(nextPreview)
     }
-  }, [value]);
+  }, [value, initialPreview]);
 
   return (
     <div>

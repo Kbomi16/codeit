@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReviewList from "./components/ReviewList";
-import { getReviews } from "./api";
+import { createReview, getReviews, updateReview } from "./api";
 import ReviewForm from "./components/ReviewForm";
 
 const LIMIT = 6;
@@ -11,7 +11,7 @@ function App() {
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(null)
+  const [loadingError, setLoadingError] = useState(null);
 
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 평점 높은 순(내림차순)
 
@@ -26,17 +26,16 @@ function App() {
   const handleLoad = async (options) => {
     let result;
     try {
-      setIsLoading(true)
-      setLoadingError(null)
-      result = await getReviews(options)
+      setIsLoading(true);
+      setLoadingError(null);
+      result = await getReviews(options);
     } catch (error) {
-      setLoadingError(error)
+      setLoadingError(error);
       return;
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-    const {paging, reviews} = result
-
+    const { paging, reviews } = result;
 
     if (options.offset === 0) {
       setItems(reviews);
@@ -51,10 +50,23 @@ function App() {
     handleLoad({ order, offset, limit: LIMIT });
   };
 
-  const handleSubmitSuccess = (review) => {
+  const handleCreateSuccess = (review) => {
     // 새로 추가된 리뷰를 배열의 맨 앞에 추가
-    setItems((prevItems) => [review, ...prevItems])
-  }
+    setItems((prevItems) => [review, ...prevItems]);
+  };
+
+  // 리뷰 수정 후 리스폰스 값 반영
+  const handleUpdateSuccess = (review) => {
+    setItems((prevItems) => {
+      const splitIdx = prevItems.findIndex((item) => item.id === review.id);
+      // prevItems배열에서 같은 아이디에 해당하는 리뷰를 찾아서 갈아 끼우기
+      return [
+        ...prevItems.slice(0, splitIdx),
+        review,
+        ...prevItems.slice(splitIdx + 1),
+      ];
+    });
+  };
 
   useEffect(() => {
     handleLoad({ order, offset: 0, limit: LIMIT });
@@ -66,8 +78,17 @@ function App() {
         <button onClick={handleNewestClick}>최신순</button>
         <button onClick={handBestClick}>베스트순</button>
       </div>
-      <ReviewForm onSubmitSuccess={handleSubmitSuccess}/>
-      <ReviewList items={sortedItems} onDelete={handleDelete} />
+      {/* 수정 후 완료 누르면 내용 반영하기 */}
+      <ReviewForm
+        onSubmit={createReview}
+        onSubmitSuccess={handleCreateSuccess}
+      />
+      <ReviewList
+        items={sortedItems}
+        onDelete={handleDelete}
+        onUpdate={updateReview}
+        onUpdateSuccess={handleUpdateSuccess}
+      />
       {hasNext && (
         // 리퀘스트가 진행 중을 때 버튼 비활성화
         <button disabled={isLoading} onClick={handleLoadMore}>
