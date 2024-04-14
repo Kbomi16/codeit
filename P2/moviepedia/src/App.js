@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReviewList from "./components/ReviewList";
 import { createReview, deleteReview, getReviews, updateReview } from "./api";
 import ReviewForm from "./components/ReviewForm";
@@ -24,7 +24,7 @@ function App() {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const handleLoad = async (options) => {
+  const handleLoad = useCallback(async (options) => {
     let result = await getReviewsAsync(options);
     // 에러나면 뒷부분 코드 실행 안 되도록
     if (!result) return;
@@ -38,7 +38,7 @@ function App() {
     }
     setOffset(options.offset + reviews.length);
     setHasNext(paging.hasNext);
-  };
+  }, [getReviewsAsync]);
 
   const handleLoadMore = () => {
     handleLoad({ order, offset, limit: LIMIT });
@@ -62,9 +62,10 @@ function App() {
     });
   };
 
+  // 함수를 디펜던시 리스트에 추가하면 무한루프에 빠질 수 있음
   useEffect(() => {
     handleLoad({ order, offset: 0, limit: LIMIT });
-  }, [order]); // 콜백함수를 맨 처음 렌더링할 때만 실행해서 무한루프를 방지함
+  }, [order, handleLoad]); // 콜백함수를 맨 처음 렌더링할 때만 실행해서 무한루프를 방지함
 
   return (
     <div>
