@@ -51,6 +51,11 @@ function App() {
     handleLoad({ order, offset, limit: LIMIT });
   };
 
+  const handleSubmitSuccess = (review) => {
+    // 새로 추가된 리뷰를 배열의 맨 앞에 추가
+    setItems((prevItems) => [review, ...prevItems])
+  }
+
   useEffect(() => {
     handleLoad({ order, offset: 0, limit: LIMIT });
   }, [order]); // 콜백함수를 맨 처음 렌더링할 때만 실행해서 무한루프를 방지함
@@ -61,7 +66,7 @@ function App() {
         <button onClick={handleNewestClick}>최신순</button>
         <button onClick={handBestClick}>베스트순</button>
       </div>
-      <ReviewForm/>
+      <ReviewForm onSubmitSuccess={handleSubmitSuccess}/>
       <ReviewList items={sortedItems} onDelete={handleDelete} />
       {hasNext && (
         // 리퀘스트가 진행 중을 때 버튼 비활성화

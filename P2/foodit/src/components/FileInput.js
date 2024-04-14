@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function FileInput({ name, value, onChange }) {
   const [preview, setPreview] = useState();
@@ -18,27 +17,16 @@ function FileInput({ name, value, onChange }) {
     onChange(name, null);
   };
 
-  /**
-   *  아래 코드를 참고해서 미리보기 기능을 만들어주세요!
-   *
-   *  ObjectURL 만들기
-   *  const objectURL = URL.createObjectURL(file);
-   *
-   *  ObjectURL 해제하기
-   *  URL.revokeObjectURL(objectURL);
-   */
-
   useEffect(() => {
-    if(!value) return
-
-    const nextPreview = URL.createObjectURL(value)
-    setPreview(nextPreview)
+    if (!value) return;
+    const nextPreview = URL.createObjectURL(value);
+    setPreview(nextPreview);
 
     return () => {
-      setPreview()
-      URL.revokeObjectURL(nextPreview)
-    }
-  }, [value])
+      setPreview();
+      URL.revokeObjectURL(nextPreview);
+    };
+  }, [value]);
 
   return (
     <div>
