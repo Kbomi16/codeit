@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
-import { createFood, updateFood, getFoods } from '../api';
-import FoodList from './FoodList';
-import FoodForm from './FoodForm';
+import { useEffect, useState } from "react";
+import { createFood, updateFood, getFoods, deleteFood } from "./api";
+import FoodList from "./components/FoodList";
+import FoodForm from "./components/FoodForm";
 
 function App() {
-  const [order, setOrder] = useState('createdAt');
+  const [order, setOrder] = useState("createdAt");
   const [cursor, setCursor] = useState(null);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
-  const handleNewestClick = () => setOrder('createdAt');
+  const handleNewestClick = () => setOrder("createdAt");
 
-  const handleCalorieClick = () => setOrder('calorie');
+  const handleCalorieClick = () => setOrder("calorie");
 
-  const handleDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
+  const handleDelete = async (id) => {
+    const result = await deleteFood(id);
+    if (!result) return;
+
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   const handleLoad = async (options) => {
@@ -54,7 +56,7 @@ function App() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setSearch(e.target['search'].value);
+    setSearch(e.target["search"].value);
   };
 
   const handleCreateSuccess = (newItem) => {
@@ -70,11 +72,6 @@ function App() {
         ...prevItems.slice(splitIdx + 1),
       ];
     });
-  };
-
-  const handleDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
   };
 
   const sortedItems = items.sort((a, b) => b[order] - a[order]);
@@ -112,3 +109,4 @@ function App() {
 }
 
 export default App;
+

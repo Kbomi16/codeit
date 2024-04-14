@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReviewList from "./components/ReviewList";
-import { createReview, getReviews, updateReview } from "./api";
+import { createReview, deleteReview, getReviews, updateReview } from "./api";
 import ReviewForm from "./components/ReviewForm";
 
 const LIMIT = 6;
@@ -17,10 +17,11 @@ function App() {
 
   const handleNewestClick = () => setOrder("createdAt");
   const handBestClick = () => setOrder("rating");
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    const result = await deleteReview(id);
+    if (!result) return;
     // 현재 순회 중인 요소의 id가 주어진 id와 같지 않은 경우를 체크
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   const handleLoad = async (options) => {
