@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import resetWhiteImg from '../assets/ic-reset-white.png';
+import placeholderImg from '../assets/preview-placeholder.png';
+import './FileInput.css';
 
-function FileInput({ initialPreview, name, value, onChange }) {
+function FileInput({ className = '', initialPreview, name, value, onChange }) {
   const [preview, setPreview] = useState(initialPreview);
   const inputRef = useRef();
 
@@ -29,12 +32,25 @@ function FileInput({ initialPreview, name, value, onChange }) {
   }, [value, initialPreview]);
 
   return (
-    <div>
-      <img src={preview} alt="이미지 미리보기" />
-      <input type="file" onChange={handleChange} ref={inputRef} />
+    <div className={`FileInput ${className}`}>
+      <img
+        className={`FileInput-preview ${preview ? 'selected' : ''}`}
+        src={preview || placeholderImg}
+        alt="이미지 미리보기"
+      />
+      <input
+        className="FileInput-hidden-overlay"
+        type="file"
+        onChange={handleChange}
+        ref={inputRef}
+      />
       {value && (
-        <button type="button" onClick={handleClearClick}>
-          X
+        <button
+          className="FileInput-clear-button"
+          type="button"
+          onClick={handleClearClick}
+        >
+          <img src={resetWhiteImg} alt="지우기" />
         </button>
       )}
     </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import useTranslate from '../hooks/useTranslate';
 import FileInput from './FileInput';
+import './FoodForm.css';
 
 function sanitize(type, value) {
   switch (type) {
@@ -25,6 +27,7 @@ function FoodForm({
   onSubmitSuccess,
   onCancel,
 }) {
+  const t = useTranslate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
   const [values, setValues] = useState(initialValues);
@@ -65,34 +68,57 @@ function FoodForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="FoodForm" onSubmit={handleSubmit}>
       <FileInput
+        className="FoodForm-preview"
         name="imgFile"
         initialPreview={initialPreview}
         value={values.imgFile}
         onChange={handleChange}
       />
-      <input name="title" value={values.title} onChange={handleInputChange} />
-      <input
-        type="number"
-        name="calorie"
-        value={values.calorie}
-        onChange={handleInputChange}
-      />
-      <input
-        name="content"
-        value={values.content}
-        onChange={handleInputChange}
-      />
-      {onCancel && (
-        <button type="button" onClick={onCancel}>
-          취소
-        </button>
-      )}
-      <button type="submit" disabled={isSubmitting}>
-        확인
-      </button>
-      {submittingError && <p>{submittingError.message}</p>}
+      <div className="FoodForm-rows">
+        <div className="FoodForm-title-calorie">
+          <input
+            className="FoodForm-title"
+            name="title"
+            value={values.title}
+            placeholder={t('title placeholder')}
+            onChange={handleInputChange}
+          />
+          <input
+            className="FoodForm-calorie"
+            type="number"
+            name="calorie"
+            value={values.calorie}
+            placeholder={t('calorie placeholder')}
+            onChange={handleInputChange}
+          />
+          {onCancel && (
+            <button
+              className="FoodForm-cancel-button"
+              type="button"
+              onClick={onCancel}
+            >
+              취소
+            </button>
+          )}
+          <button
+            className="FoodForm-submit-button"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            확인
+          </button>
+        </div>
+        <textarea
+          className="FoodForm-content"
+          name="content"
+          value={values.content}
+          placeholder="내용을 작성해 주세요."
+          onChange={handleInputChange}
+        />
+        {submittingError && <p>{submittingError.message}</p>}
+      </div>
     </form>
   );
 }
