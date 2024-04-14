@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReviewList from "./components/ReviewList";
 import { createReview, deleteReview, getReviews, updateReview } from "./api";
 import ReviewForm from "./components/ReviewForm";
+import useAsync from "./hooks/useAsync";
 
 const LIMIT = 6;
 
@@ -10,8 +11,7 @@ function App() {
   const [order, setOrder] = useState("createdAt"); // 최신순
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(null);
+  const [isLoading, loadingError, getReviewsAsync] = useAsync(getReviews);
 
   const sortedItems = items.sort((a, b) => b[order] - a[order]); // 평점 높은 순(내림차순)
 
@@ -25,17 +25,10 @@ function App() {
   };
 
   const handleLoad = async (options) => {
-    let result;
-    try {
-      setIsLoading(true);
-      setLoadingError(null);
-      result = await getReviews(options);
-    } catch (error) {
-      setLoadingError(error);
-      return;
-    } finally {
-      setIsLoading(false);
-    }
+    let result = await getReviewsAsync(options);
+    // 에러나면 뒷부분 코드 실행 안 되도록
+    if (!result) return;
+
     const { paging, reviews } = result;
 
     if (options.offset === 0) {
