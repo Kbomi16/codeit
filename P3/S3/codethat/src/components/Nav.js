@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Container from "./Container";
 import UserMenu from "./UserMenu";
 import logoImg from "../assets/logo.svg";
 import styles from "./Nav.module.css";
+
+// 현재 페이지의 경로가 내비게이션의 링크에 해당하면 이 값(isActive)이 참이 됨
+function getLinkStyle({ isActive }) {
+  return {
+    textDecoration: isActive ? "underline" : "inherit",
+  };
+}
 
 function Nav() {
   return (
@@ -13,10 +20,14 @@ function Nav() {
         </Link>
         <ul className={styles.menu}>
           <li>
-            <Link to="/courses">카탈로그</Link>
+            <NavLink to="/courses" style={getLinkStyle}>
+              카탈로그
+            </NavLink>
           </li>
           <li>
-            <Link to="/questions">커뮤니티</Link>
+            <NavLink to="/questions" style={getLinkStyle}>
+              커뮤니티
+            </NavLink>
           </li>
           <li>
             <UserMenu />
