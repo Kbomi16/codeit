@@ -6,6 +6,7 @@ import CourseListPage from "./pages/CourseListPage";
 import WishlistPage from "./pages/WishlistPage";
 import QuestionListPage from "./pages/QuestionListPage";
 import QuestionPage from "./pages/QuestionPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function Main() {
   return (
@@ -22,6 +23,8 @@ function Main() {
             <Route path=":questionId" element={<QuestionPage />} />
           </Route>
           <Route path="wishlist" element={<WishlistPage />} />
+          {/* 차례대로 route를 검사하다가 못찾으면 notfoundpage 컴포넌트가 실행됨 */}
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
