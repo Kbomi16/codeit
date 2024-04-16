@@ -37,7 +37,7 @@ function App() {
     <>
       <Container>
         <Counter />
-        <Logo src={codeitLogo} alt="codeit" />
+        {/* <Logo src={codeitLogo} alt="codeit" />
         <Description>
           회원이 아니신가요? <Link href="#">회원가입 하기</Link>
         </Description>
@@ -58,7 +58,7 @@ function App() {
           />
           <Button type="submit">로그인 하기</Button>
         </form>
-        <KakaoButton />
+        <KakaoButton /> */}
       </Container>
     </>
   );
