@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-import Button from './Button';
-import Input from './Input';
-import Label from './Label';
-import Link from './Link';
-import KakaoButton from './KakaoButton';
-import codeitLogo from './codeit.png';
+import styled from "styled-components";
+import Button from "./Button";
+import Input from "./Input";
+import Label from "./Label";
+import Link from "./Link";
+import KakaoButton from "./KakaoButton";
+import codeitLogo from "./codeit.png";
+import Counter from "./Counter";
 
 const Logo = styled.img`
   display: block;
@@ -33,30 +34,33 @@ const Container = styled.div`
 
 function App() {
   return (
-    <Container>
-      <Logo src={codeitLogo} alt="codeit" />
-      <Description>
-        회원이 아니신가요? <Link href="#">회원가입 하기</Link>
-      </Description>
-      <form>
-        <Label htmlFor="email">이메일</Label>
-        <Input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="styled@codeit.kr"
-        />
-        <Label htmlFor="password">비밀번호</Label>
-        <Input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="비밀번호"
-        />
-        <Button type="submit">로그인 하기</Button>
-      </form>
-      <KakaoButton />
-    </Container>
+    <>
+      <Container>
+        <Counter />
+        <Logo src={codeitLogo} alt="codeit" />
+        <Description>
+          회원이 아니신가요? <Link href="#">회원가입 하기</Link>
+        </Description>
+        <form>
+          <Label htmlFor="email">이메일</Label>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="styled@codeit.kr"
+          />
+          <Label htmlFor="password">비밀번호</Label>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="비밀번호"
+          />
+          <Button type="submit">로그인 하기</Button>
+        </form>
+        <KakaoButton />
+      </Container>
+    </>
   );
 }
 
