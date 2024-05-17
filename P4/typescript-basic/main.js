@@ -13,4 +13,4 @@ const newProduct = {
     sizes: [90, 95, 100, 105, 100],
 };
 // ...
-product = newProduct;
+// product = newProduct;
