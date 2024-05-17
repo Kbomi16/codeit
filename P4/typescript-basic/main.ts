@@ -1,19 +1,30 @@
-let product = {
-  id: 'c001',
-  name: '라이트 윈드 브레이커',
-  price: 129000,
-  sizes: ['M', 'L', 'XL'],
-};
+const stock: { [id: string]: number } = {
+  c001: 3,
+  c002: 1,
+}
+const cart: string[] = []
 
-// ...
+function addToCart(id: string, quantity: number = 1) {
+  // if(typeof quantity === 'undefined') {
+  //   quantity = 1
+  // }
 
-const newProduct = {
-  id: 'c002',
-  name: '다크 윈드 브레이커',
-  price: 139000,
-  sizes: [90, 95, 100, 105, 100],
-};
+  if (stock[id] < quantity) {
+    return false
+  }
 
-// ...
+  stock[id] -= quantity
+  for (let i = 0; i < quantity; i++) {
+    cart.push(id)
+  }
 
-// product = newProduct;
+  return true
+}
+
+console.log(stock, cart)
+const result1 = addToCart('c001', 1)
+console.log(`결과1: ${result1}`)
+console.log(stock, cart)
+const result2 = addToCart('c002', 2)
+console.log(`결과2: ${result2}`)
+console.log(stock, cart)
