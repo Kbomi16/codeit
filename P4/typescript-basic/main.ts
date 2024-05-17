@@ -1,30 +1,46 @@
-const stock: { [id: string]: number } = {
-  c001: 3,
-  c002: 1,
-}
-const cart: string[] = []
-
-function addToCart(id: string, quantity: number = 1) {
-  // if(typeof quantity === 'undefined') {
-  //   quantity = 1
-  // }
-
-  if (stock[id] < quantity) {
-    return false
-  }
-
-  stock[id] -= quantity
-  for (let i = 0; i < quantity; i++) {
-    cart.push(id)
-  }
-
-  return true
+enum Size {
+  S = 'S',
+  M = 'M',
+  L = 'L',
+  XL = 'XL',
 }
 
-console.log(stock, cart)
-const result1 = addToCart('c001', 1)
-console.log(`결과1: ${result1}`)
-console.log(stock, cart)
-const result2 = addToCart('c002', 2)
-console.log(`결과2: ${result2}`)
-console.log(stock, cart)
+interface Product {
+  id: string
+  name: string
+  price: number
+  salePrice: number
+  membersOnly?: boolean
+}
+
+interface ClothingProduct extends Product {
+  sizes: Size[]
+}
+
+const product1: ClothingProduct = {
+  id: 'c001',
+  name: '코드잇 블랙 후드 집업',
+  price: 129000,
+  membersOnly: true,
+  sizes: [Size.M, Size.L],
+  salePrice: 0
+}
+
+const product2: ClothingProduct = {
+  id: 'd001',
+  name: '코드잇 텀블러',
+  price: 25000,
+  sizes: [],
+  salePrice: 0
+}
+
+interface PrintProductFunction {
+  (product: Product):void
+}
+
+const printProduct: PrintProductFunction = (product) => {
+  console.log(`${product.name}의 가격은 ${product.price}원입니다.`)
+}
+
+printProduct(product1)
+printProduct(product2)
