@@ -6,16 +6,20 @@ import Label from './components/Label';
 import { useSetLocale, useTranslate } from './translate';
 
 function App() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<{
+    username: string
+    password: string
+  }>({
     username: '',
-    password: '',
+    password: ''
   });
-  const formRef = useRef();
+
+  const formRef = useRef<HTMLFormElement>(null);
   const t = useTranslate();
   const setLocale = useSetLocale();
 
   useEffect(() => {
-    const form: any = formRef.current;
+    const form = formRef.current;
     if (form) form['username'].focus();
   }, []);
 
