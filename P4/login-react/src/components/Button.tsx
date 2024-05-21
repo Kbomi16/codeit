@@ -1,15 +1,16 @@
-import { ReactNode } from 'react'
+import { MouseEvent, ReactNode } from 'react'
 import styles from './Button.module.css'
 
 interface Props {
   className?: string
   id?: string
   children?: ReactNode
-  onClick: any
+  onClick: (e: MouseEvent) => void
+  // onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Button({ className = '', id, children, onClick }: Props) {
   const classNames = `${styles.button} ${className}`
-  return <button className={classNames} id={id} children={children} onClick={onClick} />
+  return <button className={classNames} id={id} onClick={onClick}>{children}</button>
 }
 
