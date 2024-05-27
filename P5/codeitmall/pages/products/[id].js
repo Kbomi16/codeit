@@ -1,5 +1,7 @@
-import React from 'react'
+import { useRouter } from 'next/router'
 
 export default function Product() {
-  return <div>Product페이지</div>
+  const router = useRouter()
+  const { id } = router.query
+  return <div>Product {id} 페이지</div>
 }
