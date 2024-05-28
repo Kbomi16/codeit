@@ -1,38 +1,38 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import axios from '@/lib/axios'
-import styles from '@/styles/Product.module.css'
-import SizeReviewList from '@/components/SizeReviewList'
-import StarRating from '@/components/StarRating'
-import Header from '@/components/Header'
-import Container from '@/components/Container'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from '@/lib/axios';
+import styles from '@/styles/Product.module.css';
+import SizeReviewList from '@/components/SizeReviewList';
+import StarRating from '@/components/StarRating';
+import Header from '@/components/Header';
+import Container from '@/components/Container';
 
 export default function Product() {
-  const [product, setProduct] = useState()
-  const [sizeReviews, setSizeReviews] = useState([])
-  const router = useRouter()
-  const { id } = router.query
+  const [product, setProduct] = useState();
+  const [sizeReviews, setSizeReviews] = useState([]);
+  const router = useRouter();
+  const { id } = router.query;
 
   async function getProduct(targetId) {
-    const res = await axios.get(`/products/${targetId}`)
-    const nextProduct = res.data
-    setProduct(nextProduct)
+    const res = await axios.get(`/products/${targetId}`);
+    const nextProduct = res.data;
+    setProduct(nextProduct);
   }
 
   async function getSizeReviews(targetId) {
-    const res = await axios.get(`/size_reviews/?product_id=${targetId}`)
-    const nextSizeReviews = res.data.results ?? []
-    setSizeReviews(nextSizeReviews)
+    const res = await axios.get(`/size_reviews/?product_id=${targetId}`);
+    const nextSizeReviews = res.data.results ?? [];
+    setSizeReviews(nextSizeReviews);
   }
 
   useEffect(() => {
-    if (!id) return
+    if (!id) return;
 
-    getProduct(id)
-    getSizeReviews(id)
-  }, [id])
+    getProduct(id);
+    getSizeReviews(id);
+  }, [id]);
 
-  if (!product) return null
+  if (!product) return null;
 
   return (
     <>
@@ -44,11 +44,7 @@ export default function Product() {
         </h1>
         <div className={styles.content}>
           <div>
-            <img
-              className={styles.image}
-              src={product.imgUrl}
-              alt={product.name}
-            />
+            <img className={styles.image} src={product.imgUrl} alt={product.name} />
           </div>
           <div>
             <section className={styles.section}>
@@ -89,7 +85,8 @@ export default function Product() {
                     <tr>
                       <th>좋아요</th>
                       <td className={styles.like}>
-                        ♥{product.likeCount.toLocaleString()}
+                        ♥
+                        {product.likeCount.toLocaleString()}
                       </td>
                     </tr>
                   </tbody>
@@ -107,5 +104,5 @@ export default function Product() {
         </div>
       </Container>
     </>
-  )
+  );
 }
