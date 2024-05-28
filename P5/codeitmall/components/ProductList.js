@@ -1,16 +1,17 @@
-import Link from 'next/link'
-import styles from './ProductList.module.css'
-import StarRating from './StarRating'
-import Image from 'next/image'
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './ProductList.module.css';
+import StarRating from './StarRating';
+import heartImage from '@/public/heart.svg';
 
 export default function ProductList({ className = '', products }) {
   return (
     <ul className={`${styles.productList} ${className}`}>
-      {products?.map((product) => (
+      {products.map((product) => (
         <li key={product.id}>
           <Link className={styles.product} href={`/items/${product.id}`}>
             <div className={styles.image}>
-              <Image fill src={product.imgUrl} alt={product.name} />
+              <Image src={product.imgUrl} fill alt={product.name} />
             </div>
             <div className={styles.content}>
               <div>
@@ -29,7 +30,8 @@ export default function ProductList({ className = '', products }) {
                   {product.starRatingCount.toLocaleString()}
                 </div>
                 <div className={styles.likeCount}>
-                  ♥{product.likeCount.toLocaleString()}
+                  <Image src={heartImage} alt="좋아요" />
+                  {product.likeCount.toLocaleString()}
                 </div>
               </div>
             </div>
@@ -37,6 +39,5 @@ export default function ProductList({ className = '', products }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
-

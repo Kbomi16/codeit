@@ -1,5 +1,5 @@
-import ButtonLink from '@/components/ButtonLink'
-import styles from '@/styles/NotFound.module.css'
+import ButtonLink from '@/components/ButtonLink';
+import styles from '@/styles/NotFound.module.css';
 
 export default function NotFound() {
   return (
@@ -10,10 +10,8 @@ export default function NotFound() {
           <br />
           요청하신 페이지가 사라졌거나, 잘못된 경로를 이용하셨어요 :)
         </div>
-        <ButtonLink className={styles.button} href="/">
-          홈으로 이동
-        </ButtonLink>
+        <ButtonLink className={styles.button} href="/">홈으로 이동</ButtonLink>
       </div>
     </>
-  )
-}
+  );
+} 

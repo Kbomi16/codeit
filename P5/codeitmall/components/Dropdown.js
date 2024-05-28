@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
-import styles from '@/styles/Dropdown.module.css'
+import { useEffect, useState, useRef } from 'react';
+import styles from './Dropdown.module.css';
+import arrowImg from '@/public/arrow.svg';
 
 export default function Dropdown({
   className,
@@ -8,35 +9,35 @@ export default function Dropdown({
   options,
   onChange,
 }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const inputRef = useRef(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef(null);
 
   function handleInputClick() {
-    setIsOpen((prevIsOpen) => !prevIsOpen)
+    setIsOpen((prevIsOpen) => !prevIsOpen);
   }
 
   function handleBlur() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   useEffect(() => {
     function handleClickOutside(e) {
-      const isInside = inputRef.current?.contains(e.target)
+      const isInside = inputRef.current?.contains(e.target);
       if (!isInside) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
     }
 
-    window.addEventListener('click', handleClickOutside)
+    window.addEventListener('click', handleClickOutside);
     return () => {
-      window.removeEventListener('click', handleClickOutside)
-    }
-  }, [])
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const classNames = `${styles.input} ${
     isOpen ? styles.opened : ''
-  } ${className}`
-  const selectedOption = options.find((option) => option.value === value)
+  } ${className}`;
+  const selectedOption = options.find((option) => option.value === value);
 
   return (
     <div
@@ -46,13 +47,19 @@ export default function Dropdown({
       ref={inputRef}
     >
       {selectedOption.label}
-      <span className={styles.arrow}>▴</span>
+      <img
+        className={styles.arrow}
+        src={arrowImg.src}
+        width={12}
+        height={9}
+        alt="▼"
+      />
       <div className={styles.options}>
         {options.map((option) => {
-          const selected = value === option.value
+          const selected = value === option.value;
           const className = `${styles.option} ${
             selected ? styles.selected : ''
-          }`
+          }`;
           return (
             <div
               className={className}
@@ -61,9 +68,9 @@ export default function Dropdown({
             >
               {option.label}
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

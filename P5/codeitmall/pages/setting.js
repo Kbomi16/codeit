@@ -1,9 +1,9 @@
-import Dropdown from '@/components/Dropdown'
-import { useTheme } from '@/lib/ThemeContext'
-import styles from '@/styles/Setting.module.css'
+import Dropdown from '@/components/Dropdown';
+import { useTheme } from '@/lib/ThemeContext';
+import styles from '@/styles/Setting.module.css';
 
 export default function Setting() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   return (
     <div>
@@ -22,6 +22,5 @@ export default function Setting() {
         />
       </section>
     </div>
-  )
+  );
 }
-
