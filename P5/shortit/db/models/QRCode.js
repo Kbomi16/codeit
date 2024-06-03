@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const qrcodeSchema = new mongoose.Schema(
   {
@@ -8,9 +8,9 @@ const qrcodeSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
 const QRCode =
-  mongoose.models['QRCode'] || mongoose.model('QRCode', qrcodeSchema)
+  mongoose.models['QRCode'] || mongoose.model('QRCode', qrcodeSchema);
 
-export default QRCode
+export default QRCode;

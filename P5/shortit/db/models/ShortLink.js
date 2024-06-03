@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const shortLinkSchema = new mongoose.Schema(
   {
@@ -9,9 +9,9 @@ const shortLinkSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
 const ShortLink =
-  mongoose.models['ShortLink'] || mongoose.model('ShortLink', shortLinkSchema)
+  mongoose.models['ShortLink'] || mongoose.model('ShortLink', shortLinkSchema);
 
-export default ShortLink
+export default ShortLink;
