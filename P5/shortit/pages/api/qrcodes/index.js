@@ -1,9 +1,8 @@
 import dbConnect from '@/db/dbConnect'
-import mongoose from 'mongoose'
+import QRCode from '@/db/models/QRCode'
 
 export default async function handler(req, res) {
-  dbConnect()
-  console.log(mongoose.connection.readyState)
+  await dbConnect()
 
   switch (req.method) {
     case 'POST':
@@ -11,6 +10,9 @@ export default async function handler(req, res) {
       break
 
     case 'GET':
+      const props = Object.keys(QRCode.schema.paths)
+      console.log(props)
+
       res.send([
         {
           id: 'abc',
