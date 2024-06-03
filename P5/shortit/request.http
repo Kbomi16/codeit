@@ -10,7 +10,7 @@ POST http://localhost:3000/api/short-links/
 Content-Type: application/json
 
 {
-  "title": "codeit2",
+  "title": "codeit",
   "url": "https://codeit.kr"
 }
 

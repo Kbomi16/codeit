@@ -1,33 +1,37 @@
-import { useRef, useState } from 'react';
-import Image from 'next/image';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import styles from '@/styles/Home.module.css';
-import cutUrlImage from '@/public/cut-url.svg';
-import copyToClipboard from '@/lib/copyToClipboard';
+import { useRef, useState } from 'react'
+import Image from 'next/image'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
+import styles from '@/styles/Home.module.css'
+import cutUrlImage from '@/public/cut-url.svg'
+import copyToClipboard from '@/lib/copyToClipboard'
+import axios from 'axios'
 
 export default function Home() {
-  const [url, setUrl] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
-  const inputRef = useRef();
+  const [url, setUrl] = useState('')
+  const [shortUrl, setShortUrl] = useState('')
+  const inputRef = useRef()
 
   function handleChange(e) {
-    setUrl(e.target.value);
+    setUrl(e.target.value)
   }
 
   async function handleCreate(e) {
-    e.preventDefault();
-    // API 요청
-    const newShortUrl = 'abcdef';
-    setShortUrl(newShortUrl);
+    e.preventDefault()
+
+    const res = await axios.post('/short-links', { title: url, url })
+    const newShortLink = res.data
+
+    const newShortUrl = 'abcdef'
+    setShortUrl(newShortUrl)
   }
 
   async function handleCopy(e) {
-    e.preventDefault();
-    inputRef.current.select();
-    const text = inputRef.current.value;
-    await copyToClipboard(text);
-    alert('복사했습니다. ctrl + v로 붙여넣으세요');
+    e.preventDefault()
+    inputRef.current.select()
+    const text = inputRef.current.value
+    await copyToClipboard(text)
+    alert('복사했습니다. ctrl + v로 붙여넣으세요')
   }
 
   return (
@@ -72,5 +76,6 @@ export default function Home() {
         )}
       </div>
     </>
-  );
+  )
 }
+
