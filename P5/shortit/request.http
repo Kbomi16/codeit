@@ -6,14 +6,22 @@ GET http://localhost:3000/api/short-links/123?q=codeit
 
 ### 
 
-POST http://localhost:3000/api/short-links/123
+POST http://localhost:3000/api/short-links/
 Content-Type: application/json
 
 {
-  "title": "codeit"
+  "title": "codeit2",
+  "url": "https://codeit.kr"
 }
 
-### 
+###
+
+GET http://localhost:3000/api/short-links/665d380bda7187837082d4c4
+
+###
+GET http://localhost:3000/api/short-links/
+
+###
 
 GET http://localhost:3000/api/short-links/123
 Cookie: session-id=codeit1234
