@@ -1,5 +1,6 @@
 import dbConnect from '@/db/dbConnect'
 import ShortLink from '@/db/models/ShortLink'
+import createShortURL from '@/lib/createShortURL'
 
 export default async function handler(req, res) {
   await dbConnect()
@@ -8,7 +9,6 @@ export default async function handler(req, res) {
     case 'POST':
       const { title, url } = req.body
       const shortUrl = createShortURL(url)
-
       const shortLink = await ShortLink.create({
         title,
         url,

@@ -5,7 +5,7 @@ import Input from '@/components/Input'
 import styles from '@/styles/Home.module.css'
 import cutUrlImage from '@/public/cut-url.svg'
 import copyToClipboard from '@/lib/copyToClipboard'
-import axios from 'axios'
+import axios from '@/lib/axios'
 
 export default function Home() {
   const [url, setUrl] = useState('')
@@ -18,11 +18,11 @@ export default function Home() {
 
   async function handleCreate(e) {
     e.preventDefault()
-
-    const res = await axios.post('/short-links', { title: url, url })
-    const newShortLink = res.data
-
-    const newShortUrl = 'abcdef'
+    const res = await axios.post('/short-links/', {
+      title: url,
+      url,
+    })
+    const newShortUrl = res.data.shortUrl
     setShortUrl(newShortUrl)
   }
 

@@ -1,15 +1,15 @@
-import Image from 'next/image';
-import { Noto_Sans_KR } from '@next/font/google';
-import logoImage from '@/public/logo.svg';
-import styles from '@/styles/App.module.css';
-import '@/styles/global.css';
-import Link from '@/components/Link';
-import Head from 'next/head';
+import Image from 'next/image'
+import { Noto_Sans_KR } from '@next/font/google'
+import logoImage from '@/public/logo.svg'
+import styles from '@/styles/App.module.css'
+import '@/styles/global.css'
+import Link from '@/components/Link'
+import Head from 'next/head'
 
 const notoSansKR = Noto_Sans_KR({
   weight: ['400', '500'],
   subsets: ['latin'],
-});
+})
 
 export default function App({ Component, pageProps }) {
   return (
@@ -34,5 +34,6 @@ export default function App({ Component, pageProps }) {
         </main>
       </div>
     </>
-  );
+  )
 }
+
