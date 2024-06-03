@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/api/short-links/[id]": "pages/api/short-links/[id].js",
   "/": "pages/index.js",
   "/api/short-links": "pages/api/short-links.js"
 }
