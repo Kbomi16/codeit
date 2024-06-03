@@ -1,4 +1,10 @@
+import dbConnect from '@/db/dbConnect'
+import mongoose from 'mongoose'
+
 export default async function handler(req, res) {
+  dbConnect()
+  console.log(mongoose.connection.readyState)
+
   switch (req.method) {
     case 'POST':
       res.status(201).send(req.body)
