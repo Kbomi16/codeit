@@ -4,7 +4,9 @@ import ToasterProvider from '../contexts/ToasterProvider';
 function Providers({ children }) {
   return (
     <ToasterProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        {children}
+      </AuthProvider>
     </ToasterProvider>
   );
 }

@@ -49,7 +49,9 @@ function RegisterPage() {
   }
 
   useEffect(() => {
-    if (user) navigate('/me');
+    if (user) {
+      navigate('/me');
+    }
   }, [user, navigate]);
 
   return (
@@ -59,9 +61,6 @@ function RegisterPage() {
         className={styles.GoogleButton}
         type="button"
         appearance="outline"
-        as={Link}
-        to="/api/auth/google"
-        reloadDocument
       >
         <img src={GoogleImage} alt="Google" />
         구글로 시작하기

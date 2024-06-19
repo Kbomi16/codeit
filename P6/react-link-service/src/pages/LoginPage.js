@@ -10,12 +10,12 @@ import styles from './LoginPage.module.css';
 import { useAuth } from '../contexts/AuthProvider';
 
 function LoginPage() {
-  const { user, login } = useAuth();
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
+  const { user, login } = useAuth();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -28,7 +28,8 @@ function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await login(values);
+    const { email, password } = values;
+    await login({ email, password });
     navigate('/me');
   }
 
@@ -73,8 +74,7 @@ function LoginPage() {
           type="button"
           appearance="outline"
           as={Link}
-          to="/api/auth/google"
-          reloadDocument
+          /** @TODO 구글 로그인 구현 */
         >
           <img src={GoogleImage} alt="Google" />
           구글로 시작하기

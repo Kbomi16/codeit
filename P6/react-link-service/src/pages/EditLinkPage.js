@@ -8,7 +8,6 @@ import styles from './EditLinkPage.module.css';
 import { useAuth } from '../contexts/AuthProvider';
 
 function EditLinkPage() {
-  useAuth(true);
   const [values, setValues] = useState({
     title: '',
     url: '',
@@ -16,6 +15,7 @@ function EditLinkPage() {
   const params = useParams();
   const linkId = params.id;
   const navigate = useNavigate();
+  useAuth(true);
 
   async function getLink() {
     const res = await axios.get(`/users/me/links/${params.linkId}`);

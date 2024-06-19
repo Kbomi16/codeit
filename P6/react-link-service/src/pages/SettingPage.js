@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../lib/axios';
 import Label from '../components/Label';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -9,7 +10,6 @@ import styles from './SettingPage.module.css';
 import { useAuth } from '../contexts/AuthProvider';
 
 function SettingPage() {
-  const { user, updateMe } = useAuth(true);
   const [initialAvatar, setInitialAvatar] = useState('');
   const [values, setValues] = useState({
     avatar: '',
@@ -18,6 +18,7 @@ function SettingPage() {
     bio: '',
   });
   const navigate = useNavigate();
+  const { user, updateMe } = useAuth(true);
 
   function handleChange(name, value) {
     setValues((prevValues) => ({

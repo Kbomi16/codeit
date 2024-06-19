@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from '../lib/axios';
 import { useNavigate } from 'react-router-dom';
+import axios from '../lib/axios';
 
 const AuthContext = createContext({
   user: null,
-  isPending: false,
+  isPending: true,
   login: () => {},
   logout: () => {},
   updateMe: () => {},
@@ -35,16 +35,15 @@ export function AuthProvider({ children }) {
   }
 
   async function login({ email, password }) {
-    await axios.post('/auth/login', { email, password });
+    await axios.post('/auth/login', {
+      email,
+      password,
+    });
     await getMe();
   }
 
   async function logout() {
-    await axios.delete('/auth/logout');
-    setValues((prevValues) => ({
-      ...prevValues,
-      user: null,
-    }));
+    /** @TODO 로그아웃 구현하기 */
   }
 
   async function updateMe(formData) {
@@ -61,20 +60,17 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user: values.user,
-        isPending: values.isPending,
-        login,
-        logout,
-        updateMe,
-      }}
-    >
+    <AuthContext.Provider value={{
+      user: values.user,
+      isPending: values.isPending,
+      login,
+      logout,
+      updateMe,
+    }}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
-
 
 export function useAuth(required) {
   const context = useContext(AuthContext);
